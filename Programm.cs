@@ -36,6 +36,12 @@ class Program
         }
     }
 
+    // Проверка корректности хода (ветка Inputcorrectness)
+    static bool IsValidMove(int row, int col) 
+    {
+        return row >= 0 && row < 3 && col >= 0 && col < 3 && board[row, col] == ' ';
+    }
+
     static void PlayGame() 
     {
         bool gameOver = false;
@@ -45,6 +51,24 @@ class Program
             PrintBoard(); 
             int row, col;
             bool validMove = false;
+
+            // Проверка корректного ввода (Inputcorrectness)
+            while (!validMove) 
+            {
+                Console.WriteLine($"Ход игрока {currentPlayer}. Введите строку и столбец (0, 1 или 2):");
+                row = int.Parse(Console.ReadLine());
+                col = int.Parse(Console.ReadLine());
+
+                if (IsValidMove(row, col)) 
+                {
+                    board[row, col] = currentPlayer; 
+                    validMove = true;  
+                } 
+                else 
+                {
+                    Console.WriteLine("Некорректный ход. Попробуйте снова.");
+                }
+            }
 
         }
     }
